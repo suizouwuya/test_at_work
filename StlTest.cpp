@@ -54,7 +54,7 @@ void StlTest::test1()
 
 	ptrb->ptra = ptra;
 	ptra->ptrb = ptrb;
-	DEBUG("[a]:%ld [b]:%ld\n", ptra.use_count(), ptrb.use_count());
+//	DEBUG("[a]:%ld [b]:%ld\n", ptra.use_count(), ptrb.use_count());
 }
 
 /////////////////////////////////////
@@ -74,7 +74,7 @@ public:
 };
 void StlTest::test2()
 {
-	std::tr1::shared_ptr<C> a(new C);
-	auto b = a->getShared();
+//	std::tr1::shared_ptr<C> a(new C);
+//	auto b = a->getShared();
 }
 
