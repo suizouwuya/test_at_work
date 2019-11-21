@@ -12,13 +12,10 @@ using namespace TREE;
 
 RedBlackTree::RedBlackTree()
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 RedBlackTree::~RedBlackTree()
 {
-	// TODO Auto-generated destructor stub
 }
 
 RedBlackTree::_PtrTreeNode RedBlackTree::insert(int data)
