@@ -63,6 +63,7 @@ public:
 	void printAllArangeVector(std::vector<char> & vecHave, std::vector<char> & vecNeed);
 	void printAllArange(const char* src);
 
+	// 全排列
 	//from: 0~len-1
 	void reverseVector(std::vector<char> & vc, int from, int to);
 	bool next_permutation(std::vector<char> & vc);
