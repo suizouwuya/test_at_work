@@ -307,6 +307,47 @@ void CharacterAlgorithm::printAllArange2(const char* src)
 	DEBUG("count:%u", count);
 }
 
+void CharacterAlgorithm::printFromVector(const char* src, const std::vector<int>& vec)
+{
+	for (int i=0; i<vec.size(); i++)
+		printf("%c", src[vec[i]]);
+	printf("\n");
+}
+
+void CharacterAlgorithm::printAllCombin(const char* src)
+{
+	int len = strlen(src);
+
+	int count = 0;
+
+	vector<int> vi;
+	vector<char> vc;
+
+	vi.clear();
+	vi.push_back(0);
+	while (true)
+	{
+		count++;
+		printFromVector(src, vi);
+
+		//next
+		if (vi.back() < len-1)
+		{
+			vi.push_back(vi.back()+1);
+			continue;
+		}
+
+		vi.pop_back();
+		if (vi.empty())
+			break;
+		vi.back() += 1;
+	}
+
+	int should_count = pow(2, len) - 1;
+	DEBUG("count:%u, %u", count, should_count);
+}
+
+
 
 
 

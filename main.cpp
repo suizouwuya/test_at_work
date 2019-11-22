@@ -18,7 +18,7 @@ int main()
 	char str[] = "abc123";
 	CharacterAlgorithm a;
 //	a.LeftRotateString(str, strlen(str), 3);
-	a.printAllArange2("13245");
+	a.printAllCombin("13245");
 
 
 	char bstr[] = "abc def 123";

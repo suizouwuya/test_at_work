@@ -59,15 +59,20 @@ public:
 	// 偶数回文
 	int FindPalinedromeEvenLen(const char* srcleft, int maxlen);
 
+	// 全排列1
 	void printVector(const std::vector<char> & vec);
+	void printFromVector(const char* src, const std::vector<int> & vec);
 	void printAllArangeVector(std::vector<char> & vecHave, std::vector<char> & vecNeed);
 	void printAllArange(const char* src);
 
-	// 全排列
+	// 全排列2
 	//from: 0~len-1
 	void reverseVector(std::vector<char> & vc, int from, int to);
 	bool next_permutation(std::vector<char> & vc);
 	void printAllArange2(const char* src);
+
+	// 全排列 - 含子排列
+	void printAllCombin(const char* src);
 
 };
 
