@@ -74,6 +74,8 @@ public:
 	// 全排列 - 含子排列
 	void printAllCombin(const char* src);
 
+	const char* kmpsearch(const char* src, const char* pat);
+
 };
 
 #endif /* CHARACTERALGORITHM_H_ */

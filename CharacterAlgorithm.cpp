@@ -8,6 +8,7 @@
 #include "CharacterAlgorithm.h"
 #include <algorithm>
 #include "TypeBase.h"
+#include <tr1/memory>
 
 using namespace CHA;
 using namespace std;
@@ -346,6 +347,35 @@ void CharacterAlgorithm::printAllCombin(const char* src)
 	int should_count = pow(2, len) - 1;
 	DEBUG("count:%u, %u", count, should_count);
 }
+
+const char* CharacterAlgorithm::kmpsearch(const char* src, const char* pat)
+{
+	if (src == NULL || pat == NULL)
+		return src;
+
+	int lenpat = strlen(pat);
+
+	std::tr1::shared_ptr<int> ptrDelta(new int(lenpat));
+	int* arrDelta = ptrDelta.get();
+	kmp_make_delta(pat, arrDelta, lenpat);
+
+
+	int cmp = 0;
+	int lensrc = strlen(src);
+	for (int i=0; i<lensrc; i++)
+	{
+		if (pat[cmp] == src[i])
+		{
+			if (cmp >= lenpat-1)
+				return src+i-lenpat;
+			cmp++;
+			continue;
+		}
+
+		arrDelta[cmp];
+	}
+}
+
 
 
 
