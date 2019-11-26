@@ -44,11 +44,13 @@ public:
 	void ReverseWord(char* str, int len);
 	void LeftRotateString(char* str, int len, int m);
 	void ReverseString(char* str, int from, int to);
+	void testReverseWord();
 
 
 	//@return HEAD
 	CHA::Node* ReserverList(CHA::Node* pHead, CHA::Node* pEnd=NULL);
 	CHA::Node* LeftRotateList(CHA::Node* pHead, int m);
+	void testLeftRotateList();
 
 	bool StringContain(char* src, char* dest);
 
@@ -59,6 +61,7 @@ public:
 	int FindPalinedromeOddLen(const char* src, int maxlen);
 	// 偶数回文
 	int FindPalinedromeEvenLen(const char* srcleft, int maxlen);
+	void testFindpalindrome();
 
 	// 全排列1
 	void printVector(const std::vector<char> & vec);

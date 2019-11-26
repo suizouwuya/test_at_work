@@ -59,6 +59,11 @@ void CharacterAlgorithm::ReverseString(char* str, int from, int to)
 		std::swap(str[from++], str[to--]);
 	}
 }
+void CharacterAlgorithm::testReverseWord()
+{
+	char bstr[] = "abc def 123";
+	ReverseWord(bstr, strlen(bstr));
+}
 
 Node* CharacterAlgorithm::ReserverList(CHA::Node* pHead, CHA::Node* pEnd/*=NULL*/)
 {
@@ -93,6 +98,19 @@ CHA::Node* CharacterAlgorithm::LeftRotateList(CHA::Node* pHead, int m)
 	pNextFront->next = ReserverList(pHead, pNextFront);
 	pHead->next = ReserverList(pNextHead);
 	return ReserverList(pNextFront);
+}
+void CharacterAlgorithm::testLeftRotateList()
+{
+	CHA::CList list1;
+	list1.push_back(1);
+	list1.push_back(3);
+	list1.push_back(5);
+	list1.push_back(15);
+	list1.push_back(25);
+	list1.push_back(35);
+
+	list1.m_tail = list1.head();
+	list1.m_head = LeftRotateList(list1.head(), 3);
 }
 
 Node* CHA::CList::push_back(int data)
@@ -202,6 +220,27 @@ int CharacterAlgorithm::FindPalinedromeEvenLen(const char* srcleft, int maxlen)
 			return len;
 	}
 	return len;
+}
+void CharacterAlgorithm::testFindpalindrome()
+{
+	char sc1[] = "abcdef";
+	char sc2[] = "bcd";
+	char sc3[] = "bc1";
+//	printf("%d\n", StringContain(sc1, sc2));
+//	printf("%d\n", StringContain(sc1, sc3));
+
+	char pldm[] = "abcdcba";
+	char pldm2[] = "abcddcba";
+//	printf("%d\n", IsPalindrome(pldm, strlen(pldm)));
+//	printf("%d\n", IsPalindrome(pldm2, strlen(pldm2)));
+
+
+	vector<string> vecPalindrome;
+	FindPalindrome("abccbaaa", vecPalindrome);
+//	for (int i=0; i<vecPalindrome.size(); i++)
+//		printf("[%d]:%s\n", i, vecPalindrome[i].c_str());
+//	printf("%s\n", FindMaxPalindrome("abccbaaaaaaap").c_str());
+
 }
 
 void CharacterAlgorithm::printAllArangeVector(std::vector<char>& vecHave, std::vector<char>& vecNeed)

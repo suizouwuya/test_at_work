@@ -50,4 +50,12 @@ void NormalTest::test1()
 //	DEBUG("%c", a.p[0]);
 }
 
+void NormalTest::testMath()
+{
+	int pow1 = pow((float)2, 10);
+	int pow2 = log(1024)/log(2);
+//	printf("%d %d\n", pow1, pow2);
+}
+
+
 

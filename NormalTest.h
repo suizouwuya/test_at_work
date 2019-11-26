@@ -15,6 +15,8 @@ public:
 	virtual ~NormalTest();
 
 	void test1();
+
+	void testMath();
 };
 
 #endif /* NORMALTEST_H_ */
