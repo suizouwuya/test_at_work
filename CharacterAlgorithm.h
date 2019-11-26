@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <tr1/memory>
 
 using namespace std;
 
@@ -74,7 +75,15 @@ public:
 	// 全排列 - 含子排列
 	void printAllCombin(const char* src);
 
+	//size(arrDelta)==lenpat*2
+	std::vector<int> kmp_make_delta(const char* pat);
 	const char* kmpsearch(const char* src, const char* pat);
+
+	// 坏字符
+	std::vector<int> bm_make_delta1(const char* pat);
+	// 好后缀
+	std::vector<int> bm_make_delta2(const char* pat);
+	const char* bmsearch(const char* src, const char* pat);
 
 };
 

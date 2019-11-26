@@ -12,13 +12,20 @@
 #include "NormalTest.h"
 #include "StlTest.h"
 #include "RedBlackTree.h"
+#include "TypeBase.h"
+#include "BoyerMooresearch.h"
+#include "BoostTime.h"
 
 int main()
 {
 	char str[] = "abc123";
 	CharacterAlgorithm a;
 //	a.LeftRotateString(str, strlen(str), 3);
-	a.printAllCombin("13245");
+//	a.printAllCombin("13245");
+
+	Boyer_Moore_search bms;
+//	bms.test1_of_error1();
+//	bms.test2_of_error2();
 
 
 	char bstr[] = "abc def 123";
@@ -68,6 +75,9 @@ int main()
 
 	RedBlackTest rbtest;
 //	rbtest.test();
+
+	BoostTime bt;
+	bt.testDiffDay();
 
 
 }
