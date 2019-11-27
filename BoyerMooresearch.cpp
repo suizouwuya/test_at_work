@@ -64,7 +64,7 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 	for (int i=0; i<lenpat; i++)
 	{
 		if (vint[i] == -1)
-			vint[i] = lenpat - i;
+			vint[i] = lenpat+lenpat-1-i;
 	}
 	return vint;
 }
@@ -137,23 +137,13 @@ const char* Boyer_Moore_search::bmsearchWithLog(const char* src, const char* pat
 			return src + srccmp + 1;
 
 		if (patcmp == lenpat-1)
-		{
-			DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
 			srccmp += delta1[src[srccmp]];
-		}
 		else
 		{
 			if (delta1[src[srccmp]] == lenpat)
-			{
-				DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
 				srccmp += lenpat;
-			}
 			else
-			{
-				DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
 				srccmp += delta2[patcmp];
-//				srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
-			}
 		}
 	}
 	return NULL;
@@ -164,8 +154,8 @@ void Boyer_Moore_search::test_of_mine()
 //	pfind = bmsearch("eabcabc", "abc");
 //	pfind = bmsearchWithLog("eeababababecababc", "ababc");
 //	pfind = bmsearchWithLog("eabcabc", "abc");
-//	pfind = bmsearchWithLog("abcabcabcabcd", "abcd");
-	pfind = bmsearchWithLog("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
+	pfind = bmsearchWithLog("abcabddabcabcd", "abcd");
+//	pfind = bmsearchWithLog("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
