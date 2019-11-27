@@ -154,8 +154,9 @@ void Boyer_Moore_search::test_of_mine()
 //	pfind = bmsearch("eabcabc", "abc");
 //	pfind = bmsearchWithLog("eeababababecababc", "ababc");
 //	pfind = bmsearchWithLog("eabcabc", "abc");
-	pfind = bmsearchWithLog("abcabddabcabcd", "abcd");
+//	pfind = bmsearchWithLog("abcabddabcabcd", "abcd");
 //	pfind = bmsearchWithLog("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
+	pfind = bmsearchWithLog("HERE IS A SIMPLE EXAMPLE.", "EXAMPLE");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
