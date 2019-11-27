@@ -393,11 +393,6 @@ std::vector<int> CharacterAlgorithm::kmp_make_delta(const char* pat)
 	int lenpat = strlen(pat);
 	std::vector<int> arrDelta(lenpat*2, 0);
 
-//	for (int i=0; i<lenpat; i++)
-//	{
-//		arrDelta[i*2] = 0;
-//		arrDelta[i*2+1] = 0;
-//	}
 	arrDelta[0] = 1;
 
 	int matchBegin = 0;

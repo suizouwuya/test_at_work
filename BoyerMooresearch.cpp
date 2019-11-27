@@ -27,7 +27,89 @@ Boyer_Moore_search::~Boyer_Moore_search()
 }
 
 
-std::vector<int> Boyer_Moore_search::bm_make_delta_with_zero(const char* pat)
+std::vector<int> Boyer_Moore_search::bm_make_delta1(const char* pat)
+{
+	// delta1 可能会前移，但是此时delta2保证了会后移
+	int lenpat = strlen(pat);
+	std::vector<int> vint(256, lenpat);
+	for (int i=0; i<lenpat; i++)
+	{
+		vint[pat[i]] = lenpat - 1 - i;
+	}
+	return vint;
+}
+
+std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
+{
+	int lenpat = strlen(pat);
+	std::vector<int> vint(lenpat, -1);
+
+	int lastcmp = lenpat-1;
+	for (int i=lastcmp-1; i>=0; i--)
+	{
+		if (lastcmp != lenpat-1)
+			vint[lastcmp] = lastcmp-i;
+
+		if (pat[i] == pat[lastcmp])
+		{
+			lastcmp--;
+		}
+		else
+		{
+			lastcmp = lenpat-1;
+		}
+	}
+
+	for (int i=0; i<lenpat; i++)
+	{
+		if (vint[i] == -1)
+			vint[i] = lenpat - i;
+	}
+	return vint;
+}
+
+const char* Boyer_Moore_search::bmsearch(const char* src, const char* pat)
+{
+	auto delta1 = bm_make_delta1(pat);
+	auto delta2 = bm_make_delta2(pat);
+	int lensrc = strlen(src);
+	int lenpat = strlen(pat);
+
+	int srccmp = lenpat-1;
+	while (srccmp < lensrc)
+	{
+		int patcmp = lenpat-1;
+		while (patcmp>=0 && src[srccmp]==pat[patcmp])
+		{
+			patcmp--;
+			srccmp--;
+		}
+
+		//find it
+		if (patcmp < 0)
+			return src + srccmp + 1;
+
+		if (patcmp == lenpat-1)
+			srccmp += delta1[src[srccmp]];
+		else
+			srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+	}
+	return NULL;
+}
+void Boyer_Moore_search::test_of_mine()
+{
+	const char* p1 = "eabcabc";
+	const char* p2 = "abc";
+
+	char szSearch2[] = "eeababababecababc";
+	const char* p3 = bmsearch(szSearch2, "ababc");
+	if (p3 == NULL)
+		DEBUG("not found!");
+	else
+		DEBUG("[found it] %s", p3);
+}
+
+std::vector<int> Boyer_Moore_search::bm_make_delta1_with_zero(const char* pat)
 {
 	int lenpat = strlen(pat);
 	std::vector<int> delta(256, 0);
@@ -68,7 +150,7 @@ int Boyer_Moore_search::suffix_length(const char *word, int wordlen, int pos)
 	return i;
 }
 
-std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
+std::vector<int> Boyer_Moore_search::bm_make_delta2_of_error(const char* pat)
 {
 	const int lenpat = strlen(pat);
 	std::vector<int> delta(lenpat);
@@ -91,10 +173,10 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 	return delta;
 }
 
-const char* Boyer_Moore_search::bmsearch(const char* src, const char* pat)
+const char* Boyer_Moore_search::bmsearch1(const char* src, const char* pat)
 {
-	auto detal1 = bm_make_delta_with_zero(pat);
-	auto detal2 = bm_make_delta2(pat);
+	auto detal1 = bm_make_delta1_with_zero(pat);
+	auto detal2 = bm_make_delta2_of_error(pat);
 
 	const int lenpat = strlen(pat);
 	const int lensrc = strlen(src);
@@ -119,7 +201,7 @@ const char* Boyer_Moore_search::bmsearch(const char* src, const char* pat)
 void Boyer_Moore_search::test1_of_error1()
 {
 	char szSearch2[] = "eeababababecabeeeababceeee";
-	const char* pSearch2 = bmsearch(szSearch2, "eeea");
+	const char* pSearch2 = bmsearch1(szSearch2, "eeea");
 	const char* pSearchShow = pSearch2;
 	if (pSearchShow != NULL)
 		DEBUG("%s", pSearchShow);
@@ -142,7 +224,7 @@ std::vector<int> Boyer_Moore_search::bm_make_delta1_withlen(const char* pat)
 const char* Boyer_Moore_search::bmsearch2(const char* src, const char* pat)
 {
 	auto detal1 = bm_make_delta1_withlen(pat);
-	auto detal2 = bm_make_delta2(pat);
+	auto detal2 = bm_make_delta2_of_error(pat);
 
 	const int lenpat = strlen(pat);
 	const int lensrc = strlen(src);

@@ -27,6 +27,7 @@ int main()
 	Boyer_Moore_search bms;
 //	bms.test1_of_error1();
 //	bms.test2_of_error2();
+	bms.test_of_mine();
 
 
 	NormalTest t;
