@@ -51,13 +51,9 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 			vint[lastcmp] = lastcmp-i;
 
 		if (pat[i] == pat[lastcmp])
-		{
 			lastcmp--;
-		}
 		else
-		{
 			lastcmp = lenpat-1;
-		}
 	}
 
 	for (int i=0; i<lenpat; i++)
@@ -96,17 +92,52 @@ const char* Boyer_Moore_search::bmsearch(const char* src, const char* pat)
 	}
 	return NULL;
 }
+const char* Boyer_Moore_search::bmsearchWithLog(const char* src, const char* pat)
+{
+	auto delta1 = bm_make_delta1(pat);
+	auto delta2 = bm_make_delta2(pat);
+	int lensrc = strlen(src);
+	int lenpat = strlen(pat);
+
+	const char* space = "                                                     "
+			"                                                                    ";
+
+	int srccmp = lenpat-1;
+	while (srccmp < lensrc)
+	{
+		DEBUG("%.*s\033[1;31;40m%.*s\033[0m%s",
+				srccmp-lenpat+1, src,
+				lenpat, src+srccmp-lenpat+1, src+srccmp+1);
+		DEBUG("%.*s%s", srccmp-lenpat+1, space, pat);
+
+		int patcmp = lenpat-1;
+		while (patcmp>=0 && src[srccmp]==pat[patcmp])
+		{
+			patcmp--;
+			srccmp--;
+		}
+
+		//find it
+		if (patcmp < 0)
+			return src + srccmp + 1;
+
+		if (patcmp == lenpat-1)
+			srccmp += delta1[src[srccmp]];
+		else
+			srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+	}
+	return NULL;
+}
 void Boyer_Moore_search::test_of_mine()
 {
-	const char* p1 = "eabcabc";
-	const char* p2 = "abc";
-
-	char szSearch2[] = "eeababababecababc";
-	const char* p3 = bmsearch(szSearch2, "ababc");
-	if (p3 == NULL)
+	const char* pfind = NULL;
+	pfind = bmsearchWithLog("eeababababecababc", "ababc");
+//	pfind = bmsearch("eabcabc", "abc");
+//	pfind = bmsearchWithLog("eabcabc", "abc");
+	if (pfind == NULL)
 		DEBUG("not found!");
 	else
-		DEBUG("[found it] %s", p3);
+		DEBUG("[found it] %s", pfind);
 }
 
 std::vector<int> Boyer_Moore_search::bm_make_delta1_with_zero(const char* pat)
@@ -248,6 +279,7 @@ const char* Boyer_Moore_search::bmsearch2(const char* src, const char* pat)
 
 void Boyer_Moore_search::test2_of_error2()
 {
+	// 这是维基百科使用的一种代码实现方案，在进行如下搜索时发生错误
 	char szSearch1[] = "eeababababecababc";
 	const char* pSearch = bmsearch2(szSearch1, "ababc");
 	const char* pSearchShow = pSearch;
