@@ -45,15 +45,20 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 	std::vector<int> vint(lenpat, -1);
 
 	int lastcmp = lenpat-1;
-	for (int i=lastcmp-1; i>=0; i--)
+	for (int i=lastcmp-2; i>=0; i--)
 	{
-		if (lastcmp != lenpat-1)
-			vint[lastcmp] = lastcmp-i;
-
 		if (pat[i] == pat[lastcmp])
+		{
+			if (i-1 >= 0 && pat[i-1] == pat[lastcmp-1])
+			{
+			}
+			else if (vint[lastcmp-1] == -1)
+					vint[lastcmp-1] = lenpat-i;
 			lastcmp--;
+		}
 		else
 			lastcmp = lenpat-1;
+
 	}
 
 	for (int i=0; i<lenpat; i++)
@@ -85,10 +90,20 @@ const char* Boyer_Moore_search::bmsearch(const char* src, const char* pat)
 		if (patcmp < 0)
 			return src + srccmp + 1;
 
+//		if (patcmp == lenpat-1)
+//			srccmp += delta1[src[srccmp]];
+//		else
+//			srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+
 		if (patcmp == lenpat-1)
 			srccmp += delta1[src[srccmp]];
 		else
-			srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+		{
+			if (delta1[src[srccmp]] == lenpat)
+				srccmp += lenpat;
+			else
+				srccmp += delta2[patcmp];
+		}
 	}
 	return NULL;
 }
@@ -122,9 +137,24 @@ const char* Boyer_Moore_search::bmsearchWithLog(const char* src, const char* pat
 			return src + srccmp + 1;
 
 		if (patcmp == lenpat-1)
+		{
+			DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
 			srccmp += delta1[src[srccmp]];
+		}
 		else
-			srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+		{
+			if (delta1[src[srccmp]] == lenpat)
+			{
+				DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
+				srccmp += lenpat;
+			}
+			else
+			{
+				DEBUG("%d %d==%d", patcmp, delta1[src[srccmp]], delta2[patcmp]);
+				srccmp += delta2[patcmp];
+//				srccmp += std::max(delta1[src[srccmp]], delta2[patcmp]);
+			}
+		}
 	}
 	return NULL;
 }
@@ -134,7 +164,8 @@ void Boyer_Moore_search::test_of_mine()
 //	pfind = bmsearch("eabcabc", "abc");
 //	pfind = bmsearchWithLog("eeababababecababc", "ababc");
 //	pfind = bmsearchWithLog("eabcabc", "abc");
-	pfind = bmsearchWithLog("abcabcabcabcd", "abcd");
+//	pfind = bmsearchWithLog("abcabcabcabcd", "abcd");
+	pfind = bmsearchWithLog("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
