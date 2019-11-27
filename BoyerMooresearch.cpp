@@ -131,9 +131,10 @@ const char* Boyer_Moore_search::bmsearchWithLog(const char* src, const char* pat
 void Boyer_Moore_search::test_of_mine()
 {
 	const char* pfind = NULL;
-	pfind = bmsearchWithLog("eeababababecababc", "ababc");
 //	pfind = bmsearch("eabcabc", "abc");
+//	pfind = bmsearchWithLog("eeababababecababc", "ababc");
 //	pfind = bmsearchWithLog("eabcabc", "abc");
+	pfind = bmsearchWithLog("abcabcabcabcd", "abcd");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
