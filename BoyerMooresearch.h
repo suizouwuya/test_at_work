@@ -21,6 +21,7 @@ public:
 	std::vector<int> bm_make_delta2(const char* pat);
 	const char* bmsearch(const char* src, const char* pat);
 	const char* bmsearchWithLog(const char* src, const char* pat);
+	const char* bmsearchWithLogOptimize(const char* src, const char* pat);
 	void test_of_mine();
 
 public: // error1

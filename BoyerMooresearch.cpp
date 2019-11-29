@@ -64,7 +64,7 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 	for (int i=0; i<lenpat; i++)
 	{
 		if (vint[i] == -1)
-			vint[i] = lenpat+lenpat-1-i;
+			vint[i] = lenpat-1+lenpat-1-i;
 	}
 	return vint;
 }
@@ -148,15 +148,68 @@ const char* Boyer_Moore_search::bmsearchWithLog(const char* src, const char* pat
 	}
 	return NULL;
 }
+const char* Boyer_Moore_search::bmsearchWithLogOptimize(const char* src, const char* pat)
+{
+	auto delta1 = bm_make_delta1(pat);
+	auto delta2 = bm_make_delta2(pat);
+	int lensrc = strlen(src);
+	int lenpat = strlen(pat);
+
+	const char* space = "                                                     "
+			"                                                                    ";
+
+	int srccmp = lenpat-1;
+	while (srccmp < lensrc)
+	{
+		DEBUG("%.*s\033[1;31;40m%.*s\033[0m%s",
+				srccmp-lenpat+1, src,
+				lenpat, src+srccmp-lenpat+1, src+srccmp+1);
+		DEBUG("%.*s%s", srccmp-lenpat+1, space, pat);
+
+		int patcmp = lenpat-1;
+		while (patcmp>=0 && src[srccmp]==pat[patcmp])
+		{
+			patcmp--;
+			srccmp--;
+		}
+
+		//find it
+		if (patcmp < 0)
+			return src + srccmp + 1;
+
+		if (srccmp+lenpat-patcmp >= lensrc)
+			break;
+		auto ndelta1 = delta1[src[srccmp+lenpat-patcmp]];
+//		if (patcmp == lenpat-1)
+//			srccmp += (ndelta1+lenpat-patcmp);
+//		else
+//			srccmp += std::max(ndelta1+lenpat-patcmp, delta2[patcmp]);
+
+		if (patcmp == lenpat-1)
+			srccmp += (ndelta1+lenpat-patcmp);
+		else
+		{
+			if (ndelta1 == lenpat)
+				srccmp += (ndelta1+lenpat-patcmp);
+			else
+				srccmp += delta2[patcmp];
+		}
+	}
+	return NULL;
+}
 void Boyer_Moore_search::test_of_mine()
 {
 	const char* pfind = NULL;
 //	pfind = bmsearch("eabcabc", "abc");
-//	pfind = bmsearchWithLog("eeababababecababc", "ababc");
-//	pfind = bmsearchWithLog("eabcabc", "abc");
-//	pfind = bmsearchWithLog("abcabddabcabcd", "abcd");
-//	pfind = bmsearchWithLog("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
-	pfind = bmsearchWithLog("HERE IS A SIMPLE EXAMPLE.", "EXAMPLE");
+//	pfind = bmsearchWithLogOptimize("eeababababecababc", "ababc");
+//	pfind = bmsearchWithLogOptimize("eabcabc", "abc");
+//	pfind = bmsearchWithLogOptimize("abcabddabcabcd", "abcd");
+//	pfind = bmsearchWithLogOptimize("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
+//	pfind = bmsearchWithLogOptimize("HERE IS A SIMPLE EXAMPLE.", "EXAMPLE");
+	pfind = bmsearchWithLogOptimize("baaaabaaaabaaaabaaaaa", "aaaaa");
+//	pfind = bmsearchWithLogOptimize("searefgabcsearchtaarcher", "search");
+//	pfind = bmsearchWithLogOptimize("FINDINAHAYSTACKNEEDLEINA", "NEEDLE");
+//	pfind = bmsearchWithLogOptimize("substring searching algorithm search", "search");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
