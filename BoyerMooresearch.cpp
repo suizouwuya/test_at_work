@@ -43,28 +43,31 @@ std::vector<int> Boyer_Moore_search::bm_make_delta2(const char* pat)
 {
 	int lenpat = strlen(pat);
 	std::vector<int> vint(lenpat, -1);
+	if (lenpat == 0)
+		return vint;
 
 	int lastcmp = lenpat-1;
-	for (int i=lastcmp-2; i>=0; i--)
+	for (int i=lastcmp-1; i>=0; i--)
 	{
 		if (pat[i] == pat[lastcmp])
 		{
 			if (i-1 >= 0 && pat[i-1] == pat[lastcmp-1])
 			{
+//				if (vint[i] == -1)
+//					vint[i] = (lastcmp-i)+lenpat-1-i;
 			}
 			else if (vint[lastcmp-1] == -1)
-					vint[lastcmp-1] = lenpat-i;
+				vint[lastcmp-1] = lenpat-i;
 			lastcmp--;
 		}
 		else
 			lastcmp = lenpat-1;
-
 	}
 
 	for (int i=0; i<lenpat; i++)
 	{
 		if (vint[i] == -1)
-			vint[i] = lenpat-1+lenpat-1-i;
+			vint[i] = lenpat+lenpat-1-i;
 	}
 	return vint;
 }
@@ -180,11 +183,6 @@ const char* Boyer_Moore_search::bmsearchWithLogOptimize(const char* src, const c
 		if (srccmp+lenpat-patcmp >= lensrc)
 			break;
 		auto ndelta1 = delta1[src[srccmp+lenpat-patcmp]];
-//		if (patcmp == lenpat-1)
-//			srccmp += (ndelta1+lenpat-patcmp);
-//		else
-//			srccmp += std::max(ndelta1+lenpat-patcmp, delta2[patcmp]);
-
 		if (patcmp == lenpat-1)
 			srccmp += (ndelta1+lenpat-patcmp);
 		else
@@ -201,15 +199,19 @@ void Boyer_Moore_search::test_of_mine()
 {
 	const char* pfind = NULL;
 //	pfind = bmsearch("eabcabc", "abc");
-//	pfind = bmsearchWithLogOptimize("eeababababecababc", "ababc");
-//	pfind = bmsearchWithLogOptimize("eabcabc", "abc");
-//	pfind = bmsearchWithLogOptimize("abcabddabcabcd", "abcd");
-//	pfind = bmsearchWithLogOptimize("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
-//	pfind = bmsearchWithLogOptimize("HERE IS A SIMPLE EXAMPLE.", "EXAMPLE");
+	pfind = bmsearchWithLogOptimize("eeababababecababc", "ababc");
+	pfind = bmsearchWithLogOptimize("eabcabc", "abc");
+	pfind = bmsearchWithLogOptimize("abcabddabcabcd", "abcd");
+	pfind = bmsearchWithLogOptimize("WHICH-FINALLY-HALTS.--AT-THAT-POINT", "AT-THAT");
+	pfind = bmsearchWithLogOptimize("HERE IS A SIMPLE EXAMPLE.", "EXAMPLE");
 	pfind = bmsearchWithLogOptimize("baaaabaaaabaaaabaaaaa", "aaaaa");
-//	pfind = bmsearchWithLogOptimize("searefgabcsearchtaarcher", "search");
-//	pfind = bmsearchWithLogOptimize("FINDINAHAYSTACKNEEDLEINA", "NEEDLE");
-//	pfind = bmsearchWithLogOptimize("substring searching algorithm search", "search");
+	pfind = bmsearchWithLogOptimize("searefgabcsearchtaarcher", "search");
+	pfind = bmsearchWithLogOptimize("FINDINAHAYSTACKNEEDLEINA", "NEEDLE");
+	pfind = bmsearchWithLogOptimize("substring searching algorithm search", "search");
+	pfind = bmsearchWithLogOptimize("aaabbbbbaccbbbaadbbbb", "adbb");
+	pfind = bmsearchWithLogOptimize("bbdbbabb", "bbabb");
+	pfind = bmsearchWithLogOptimize("bdbbab", "bab");
+	pfind = bmsearchWithLogOptimize("abaaa", "baaa");
 	if (pfind == NULL)
 		DEBUG("not found!");
 	else
