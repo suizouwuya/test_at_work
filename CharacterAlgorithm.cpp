@@ -545,6 +545,66 @@ const char* CharacterAlgorithm::bmsearch(const char* src, const char* pat)
 	return NULL;
 }
 
+int CharacterAlgorithm::wubicode(const char* src)
+{
+	// [a]:0 [aa]:1 [aaa]:2 [aaaa]:3
+	// [aaab]:4 [aaac]:5
+
+	map<string, int> mapWubi;
+	wubitable(mapWubi);
+
+	auto it = mapWubi.find(src);
+	if (it != mapWubi.end())
+		return it->second;
+
+	return 0;
+}
+bool CharacterAlgorithm::nextwubi(std::vector<char> & wubi)
+{
+	int i = wubi.size()-1;
+
+	if (wubi[i] == 0)
+	{
+		while (i>1 && wubi[i-1]==0)
+			i--;
+		wubi[i] = 'a';
+		return true;
+	}
+
+	if (wubi[i] < 'z')
+	{
+		wubi[i]++;
+		return true;
+	}
+
+	while (i>0 && wubi[i]=='z')
+		wubi[i--] = 0;
+
+	if (wubi[i] == 'z')
+		return false;
+	wubi[i]++;
+	return true;
+}
+void CharacterAlgorithm::wubitable(std::map<std::string, int> & mapwubi)
+{
+	std::vector<char> wubi(4,0);
+	wubi[0] = 'a';
+	int code = 0;
+
+	do
+	{
+//		DEBUG("%s", wubi.data());
+		mapwubi[wubi.data()] = code++;
+	} while (nextwubi(wubi));
+}
+void CharacterAlgorithm::testWubi()
+{
+	char wubi[] = "aeae";
+	DEBUG("%s:\t%d", wubi, wubicode(wubi));
+}
+
+
+
 
 
 

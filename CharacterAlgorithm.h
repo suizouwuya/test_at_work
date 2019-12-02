@@ -12,6 +12,7 @@
 #include <vector>
 #include <list>
 #include <tr1/memory>
+#include <map>
 
 using namespace std;
 
@@ -87,6 +88,11 @@ public:
 	// 好后缀
 	std::vector<int> bm_make_delta2(const char* pat);
 	const char* bmsearch(const char* src, const char* pat);
+
+	int wubicode(const char* src);
+	bool nextwubi(std::vector<char> & wubi);
+	void wubitable(std::map<std::string, int> & mapwubi);
+	void testWubi();
 
 };
 
