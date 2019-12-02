@@ -8,6 +8,7 @@
 #ifndef MAXSUBSTRING_H_
 #define MAXSUBSTRING_H_
 #include <string>
+#include <vector>
 
 class MaxSubString
 {
@@ -17,6 +18,13 @@ public:
 
 	std::string GetMaxSubString(std::string str);
 	void testMaxSubString();
+
+	int GetMaxSubArray(std::vector<int>& vec);
+	int GetMaxSubArrayArr(const int* arr, int len);
+	void testMaxArray();
+
+	void GetMaxNoRepeatedSubstring(const char* str);
+	void testMaxNoRepeatedSubString();
 };
 
 #endif /* MAXSUBSTRING_H_ */

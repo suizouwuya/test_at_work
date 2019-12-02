@@ -24,6 +24,7 @@ int main()
 //	a.testLeftRotateList();
 //	a.testFindpalindrome();
 //	a.testWubi();
+	a.testSuffixString();
 
 
 	Boyer_Moore_search bms;
@@ -47,7 +48,7 @@ int main()
 //	bt.testDiffDay();
 
 	MaxSubString ms;
-	ms.testMaxSubString();
+//	ms.testMaxNoRepeatedSubString();
 
 }
 

@@ -94,6 +94,9 @@ public:
 	void wubitable(std::map<std::string, int> & mapwubi);
 	void testWubi();
 
+	std::vector<std::string> GetSuffixStringByRadixsort(const char* src);
+	void testSuffixString();
+
 };
 
 #endif /* CHARACTERALGORITHM_H_ */

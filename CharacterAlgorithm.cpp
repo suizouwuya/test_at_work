@@ -603,6 +603,52 @@ void CharacterAlgorithm::testWubi()
 	DEBUG("%s:\t%d", wubi, wubicode(wubi));
 }
 
+std::vector<std::string> CharacterAlgorithm::GetSuffixStringByRadixsort(const char* src)
+{
+	int len = strlen(src);
+	std::vector<std::string> vec;
+
+	for (int i=0; i<len; i++)
+	{
+		vec.push_back(std::string(src+i, len-i));
+		DEBUG("%s", vec.back().c_str());
+	}
+
+	std::vector<std::vector<std::string> > vvs(256);
+	for (int i=len; i>=0; i--)
+	{
+		for (int j=0; j<vec.size(); j++)
+		{
+			auto& str = vec[j];
+			if (i >= str.length())
+				vvs[0].push_back(str);
+			else
+				vvs[str[i]].push_back(str);
+		}
+
+		vec.clear();
+		for (int z=0; z<vvs.size(); z++)
+		{
+			auto& vs = vvs[z];
+			for (int j=0; j<vs.size(); j++)
+				vec.push_back(vs[j]);
+			vs.clear();
+		}
+	}
+
+	DEBUG("-------------");
+	for (int i=0; i<vec.size(); i++)
+		DEBUG("%s", vec[i].c_str());
+
+	return vec;
+}
+
+void CharacterAlgorithm::testSuffixString()
+{
+	GetSuffixStringByRadixsort("abdcceee");
+}
+
+
 
 
 
