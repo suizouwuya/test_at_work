@@ -15,6 +15,7 @@
 #include "TypeBase.h"
 #include "BoyerMooresearch.h"
 #include "BoostTime.h"
+#include "MaxSubString.h"
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
 //	a.testReverseWord();
 //	a.testLeftRotateList();
 //	a.testFindpalindrome();
-	a.testWubi();
+//	a.testWubi();
 
 
 	Boyer_Moore_search bms;
@@ -44,6 +45,9 @@ int main()
 
 	BoostTime bt;
 //	bt.testDiffDay();
+
+	MaxSubString ms;
+	ms.testMaxSubString();
 
 }
 
