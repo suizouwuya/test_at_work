@@ -22,6 +22,9 @@ public:
 	std::vector<int> FindMinNumbers(const std::vector<int>& vec, int findsize);
 	std::vector<int> FindMinNumbers2(const std::vector<int>& vec, int findsize);
 	void testMinnums();
+
+	std::vector<int> GetMinSum(const std::vector<int>& va, const std::vector<int>& vb, int k);
+	void testMinSum();
 };
 
 #endif /* ARRAYALGORITHM_H_ */

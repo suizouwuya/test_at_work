@@ -56,7 +56,7 @@ int main()
 //	ht.testHeapSort();
 
 	ArrayAlgorithm aa;
-	aa.testMinnums();
+	aa.testMinSum();
 
 }
 

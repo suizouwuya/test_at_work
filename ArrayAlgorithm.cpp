@@ -78,4 +78,49 @@ void ArrayAlgorithm::testMinnums()
 	printVector(FindMinNumbers2(v, 3));
 }
 
+std::vector<int> ArrayAlgorithm::GetMinSum(const std::vector<int>& va, const std::vector<int>& vb,
+		int k)
+{
+	std::vector<int> vres;
+	if (va.empty() || vb.empty())
+		return vres;
+
+	vres.push_back(va.front()+vb.front());
+
+	for (int i=0,j=0; i<va.size() && j<vb.size() && vres.size() < k; )
+	{
+		int next;
+		if (j+1 >= vb.size())
+		{
+			if (i+1 >= va.size())
+				break;
+			next = va[++i]+vb[j];
+		}
+		else if (i+1 >= va.size())
+		{
+			if (j+1 >= vb.size())
+				break;
+			next = va[i]+vb[++j];
+		}
+		else
+		{
+			if (va[i+1]+vb[j] < va[i]+vb[j+1])
+				next = va[++i]+vb[j];
+			else
+				next = va[i]+vb[++j];
+		}
+		vres.push_back(next);
+	}
+	return vres;
+}
+
+void ArrayAlgorithm::testMinSum()
+{
+	std::vector<int> va={1,2,3,4,5};
+	std::vector<int> vb={1,3,5,7,8,9};
+
+	printVector(GetMinSum(va, vb, 15));
+}
+
+
 
