@@ -97,6 +97,15 @@ public:
 	std::vector<std::string> GetSuffixStringByRadixsort(const char* src);
 	void testSuffixString();
 
+	void DeleteCharFromString(char* src, const char* pat);
+	void testDeleteString();
+
+	bool issign(char c);
+	char* MoveSignToLeft(char* src);
+	void testMoveSignToLeft();
+
+	void PrintAllPalinedrome(const char* src);
+	void testAllPalinedrome();
 };
 
 #endif /* CHARACTERALGORITHM_H_ */

@@ -648,6 +648,109 @@ void CharacterAlgorithm::testSuffixString()
 	GetSuffixStringByRadixsort("abdcceee");
 }
 
+void CharacterAlgorithm::DeleteCharFromString(char* src, const char* pat)
+{
+	int lenpat = strlen(pat);
+	int lensrc = strlen(src);
+	if (lensrc == 0)
+		return;
+
+	std::vector<bool> v(256, false);
+	for (int i=0; i<lenpat; i++)
+		v[pat[i]] = true;
+
+	int needset = 0;
+	for (int i=0; i<lensrc; i++)
+	{
+		char c = src[i];
+		if (!v[c])
+			src[needset++] = c;
+	}
+	src[needset] = '\0';
+}
+
+void CharacterAlgorithm::testDeleteString()
+{
+	char a[] = "welcome to asted";
+	const char* p = "aeiou";
+
+	DeleteCharFromString(a, p);
+	DEBUG("%s", a);
+}
+
+bool CharacterAlgorithm::issign(char c)
+{
+	if ((c >= 'a' && c<='z') ||
+			(c>='A'&&c<='Z'))
+		return false;
+	return true;
+}
+char* CharacterAlgorithm::MoveSignToLeft(char* src)
+{
+	int len = strlen(src);
+
+	int lastsign = -1;
+	for (int i=0; i<len; i++)
+	{
+		if (issign(src[i]))
+		{
+			for (int j=i-1; j>lastsign; j--)
+				std::swap(src[j+1], src[j]);
+			lastsign++;
+		}
+	}
+	return src;
+}
+void CharacterAlgorithm::testMoveSignToLeft()
+{
+	char a[] = ";abc+eef+ffa++aa,";
+	DEBUG("%s", MoveSignToLeft(a));
+}
+
+void CharacterAlgorithm::PrintAllPalinedrome(const char* src)
+{
+	int len = strlen(src);
+	int lastprint = -1;
+	for (int i=0; i<len; )
+	{
+		int maxlen = std::min(i-lastprint, len-i);
+		int lenPalined = FindPalinedromeOddLen(src+i, maxlen);
+		if (lenPalined > 1)
+		{
+			for (int j=lastprint+1; j<i-lenPalined+1; j++)
+				DEBUG("%c", src[j]);
+			DEBUG("%.*s", lenPalined*2-1, src+i-lenPalined+1);
+			lastprint = i+lenPalined-1;
+			i = lastprint+1;
+			continue;
+		}
+
+		maxlen = std::min(i-lastprint, len-i-1);
+		lenPalined = FindPalinedromeEvenLen(src+i, maxlen);
+		if (lenPalined >= 1)
+		{
+			for (int j=lastprint+1; j<i-lenPalined+1; j++)
+				DEBUG("%c", src[j]);
+			DEBUG("%.*s", lenPalined*2, src+i-lenPalined+1);
+			lastprint = i+lenPalined;
+			i = lastprint+1;
+			continue;
+		}
+
+		i++;
+	}
+	for (int i=lastprint+1; i<len; i++)
+		DEBUG("%c", src[i]);
+}
+
+void CharacterAlgorithm::testAllPalinedrome()
+{
+	PrintAllPalinedrome("habbafgh");
+}
+
+
+
+
 
 
 

@@ -16,6 +16,8 @@
 #include "BoyerMooresearch.h"
 #include "BoostTime.h"
 #include "MaxSubString.h"
+#include "HeapTest.h"
+#include "ArrayAlgorithm.h"
 
 int main()
 {
@@ -24,7 +26,7 @@ int main()
 //	a.testLeftRotateList();
 //	a.testFindpalindrome();
 //	a.testWubi();
-	a.testSuffixString();
+//	a.testAllPalinedrome();
 
 
 	Boyer_Moore_search bms;
@@ -49,6 +51,12 @@ int main()
 
 	MaxSubString ms;
 //	ms.testMaxNoRepeatedSubString();
+
+	HeapTest ht;
+//	ht.testHeapSort();
+
+	ArrayAlgorithm aa;
+	aa.testMinnums();
 
 }
 
