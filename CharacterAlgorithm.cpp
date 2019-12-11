@@ -748,6 +748,79 @@ void CharacterAlgorithm::testAllPalinedrome()
 	PrintAllPalinedrome("habbafgh");
 }
 
+void CharacterAlgorithm::ReArrange3Bobble(char* arr)
+{
+	int len = strlen(arr);
+
+	int size1=0, size2=0, size3=0;
+	int lasti = 0;
+	for (int i=0; i<len; i++)
+	{
+		lasti = i;
+		if (arr[i] == 'a')
+		{
+			if (size3 != 0)
+			{
+				std::swap(arr[size1+size2], arr[i]);
+				i = size1+size2;
+			}
+			if (size2 != 0)
+				std::swap(arr[size1], arr[i]);
+			size1++;
+		}
+		else if (arr[i] == 'b')
+		{
+			if (size3 != 0)
+				std::swap(arr[size1+size2], arr[i]);
+			size2++;
+		}
+		else
+			size3++;
+		i = lasti;
+	}
+}
+void CharacterAlgorithm::test3Bobble()
+{
+	char a[] = "abbaacba";
+	ReArrange3Bobble(a);
+	DEBUG("%s", a);
+}
+
+void CharacterAlgorithm::MergeN(char src[], int n)
+{
+	int i = n*2-1;
+	char c = src[i];
+
+	while (1)
+	{
+		int needto = -1;
+		if (i >= n)
+			needto = (i-n)*2+1;
+		else
+			needto = i*2;
+
+		std::swap(src[needto], c);
+		if (needto == 1)
+			break;
+		i = needto;
+	}
+}
+
+void CharacterAlgorithm::testMeregeN()
+{
+	const int n = 9;
+	char src[n*2+1];
+	memset(src, 0, sizeof(src));
+	for (int i=0; i<n; i++)
+		src[i] = '1'+i;
+	for (int i=0; i<n; i++)
+		src[n+i] = 'a'+i;
+	MergeN(src, n);
+	DEBUG("%s", src);
+}
+
+
+
 
 
 

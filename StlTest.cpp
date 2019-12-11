@@ -9,6 +9,7 @@
 #include <tr1/memory>
 #include <stdio.h>
 #include "TypeBase.h"
+#include <unordered_map>
 
 using namespace std;
 
@@ -76,5 +77,6 @@ void StlTest::test2()
 {
 //	std::tr1::shared_ptr<C> a(new C);
 //	auto b = a->getShared();
+
 }
 

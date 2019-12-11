@@ -19,4 +19,8 @@
 	} while (0)
 
 
+// iterator loop
+#define FOR_EACH_FROWARD(it, container) \
+    for( auto it = (container).begin(); it != (container).end(); ++it )
+
 #endif /* TYPEBASE_H_ */

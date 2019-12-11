@@ -57,5 +57,32 @@ void NormalTest::testMath()
 //	printf("%d %d\n", pow1, pow2);
 }
 
+void NormalTest::testThrow()
+{
+	try
+	{
+		throw "abcdef";
+		throw 123;
+		throw std::string("throw string");
+	}
+	catch (char* e) {
+		DEBUG("throw char* : %s", e);
+	}
+	catch (const char* e) {
+		DEBUG("throw const char* : %s", e);
+	}
+	catch (int e) {
+		DEBUG("throw int : %d", e);
+	}
+	catch (std::string& e) {
+		DEBUG("throw string : %s", e.c_str());
+	}
+	catch (exception& e)
+	{
+		DEBUG("throw exception : %s", e.what());
+	}
+}
+
+
 
 

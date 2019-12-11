@@ -106,6 +106,13 @@ public:
 
 	void PrintAllPalinedrome(const char* src);
 	void testAllPalinedrome();
+
+	// a,b,c
+	void ReArrange3Bobble(char* arr);
+	void test3Bobble();
+
+	void MergeN(char src[], int n);
+	void testMeregeN();
 };
 
 #endif /* CHARACTERALGORITHM_H_ */

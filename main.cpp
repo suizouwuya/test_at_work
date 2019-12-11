@@ -18,15 +18,19 @@
 #include "MaxSubString.h"
 #include "HeapTest.h"
 #include "ArrayAlgorithm.h"
+#include "MapAlgorithm.h"
 
 int main()
 {
+	DEBUG("===============");
+	DEBUG("===============");
 	CharacterAlgorithm a;
 //	a.testReverseWord();
 //	a.testLeftRotateList();
 //	a.testFindpalindrome();
 //	a.testWubi();
 //	a.testAllPalinedrome();
+//	a.testMeregeN();
 
 
 	Boyer_Moore_search bms;
@@ -38,6 +42,7 @@ int main()
 	NormalTest t;
 //	t.testMath();
 //	t.test1();
+//	t.testThrow();
 
 	StlTest st1;
 //	st1.test2();
@@ -56,7 +61,10 @@ int main()
 //	ht.testHeapSort();
 
 	ArrayAlgorithm aa;
-	aa.testMinSum();
+//	aa.testMaxSubArray();
+
+	MapAlgorithm ma;
+	ma.testMinDistance();
 
 }
 

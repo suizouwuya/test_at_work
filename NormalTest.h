@@ -17,6 +17,8 @@ public:
 	void test1();
 
 	void testMath();
+
+	void testThrow();
 };
 
 #endif /* NORMALTEST_H_ */
